@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Login - Intrepid</title>
+    <link href="https://db.onlinewebfonts.com/c/2545d122b16126676225a5b52283ae23?family=VCR+OSD+Mono" rel="stylesheet">
+    <style>
+        body {
+            background-color: #000;
+            color: #ff0000;
+            font-family: "VCR OSD Mono", monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url("/wp-content/uploads/2026/01/622418679_1885992355619950_4438100581784582523_n.gif");
+        }
+        .login-box {
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 2px solid #ff0000;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 0 15px #ff0000;
+            width: 300px;
+        }
+        h1 {
+            margin-top: 0;
+            font-size: 24px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #111;
+            border: 1px solid #ff0000;
+            color: #fff;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #ff0000;
+            color: #000;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #b00202;
+            color: #fff;
+        }
+        .error {
+            color: yellow;
+            margin-bottom: 15px;
+        }
+        a {
+            color: #fff;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        a:hover {
+            color: #ff0000;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <h1>INTREPID ADMIN</h1>
+        <% if (error) { %>
+            <div class="error"><%= error %></div>
+        <% } %>
+        <form action="/admin/login" method="POST">
+            <input type="text" name="username" placeholder="Username" required autofocus>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">LOGIN</button>
+        </form>
+        <a href="/">&larr; Back to Site</a>
+    </div>
+</body>
+</html>

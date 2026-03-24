@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard - Intrepid</title>
+    <link href="https://db.onlinewebfonts.com/c/2545d122b16126676225a5b52283ae23?family=VCR+OSD+Mono" rel="stylesheet">
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: "VCR OSD Mono", monospace;
+            margin: 0;
+            padding: 0;
+            background-image: url("/wp-content/uploads/2026/01/622418679_1885992355619950_4438100581784582523_n.gif");
+        }
+        .header {
+            background-color: rgba(0,0,0,0.9);
+            border-bottom: 2px solid #ff0000;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h1 {
+            color: #ff0000;
+            margin: 0;
+        }
+        .header a {
+            color: #fff;
+            text-decoration: none;
+            padding: 5px 15px;
+            border: 1px solid #fff;
+            transition: all 0.2s;
+        }
+        .header a:hover {
+            background-color: #fff;
+            color: #000;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            background-color: rgba(0,0,0,0.85);
+            border: 2px solid #ff0000;
+            padding: 30px;
+        }
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .menu-item {
+            border: 1px solid #ff0000;
+            padding: 20px;
+            text-align: center;
+            text-decoration: none;
+            color: #ff0000;
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 150px;
+            font-size: 20px;
+        }
+        .menu-item:hover {
+            background-color: #ff0000;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>INTREPID ADMIN CONTROL</h1>
+        <div>
+            <a href="/" target="_blank">View Site</a>
+            <a href="/admin/logout" style="margin-left: 10px; border-color: #ff0000; color: #ff0000;">Logout</a>
+        </div>
+    </div>
+    
+    <div class="container">
+        <h2>Welcome to the Admin Dashboard</h2>
+        <p>Select a section to manage:</p>
+        
+        <div class="menu-grid">
+            <a href="/admin/tour_dates" class="menu-item">Manage Tour Dates</a>
+            <a href="/admin/videos" class="menu-item">Manage Videos</a>
+            <a href="/admin/photos" class="menu-item">Manage Photos</a>
+            <a href="/admin/merch" class="menu-item">Manage Merch</a>
+            <a href="/admin/guestbook" class="menu-item">Manage Guestbook</a>
+        </div>
+    </div>
+</body>
+</html>

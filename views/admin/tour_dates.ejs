@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Tour Dates - Admin</title>
+    <link href="https://db.onlinewebfonts.com/c/2545d122b16126676225a5b52283ae23?family=VCR+OSD+Mono" rel="stylesheet">
+    <style>
+        body { background-color: #000; color: #fff; font-family: "VCR OSD Mono", monospace; margin: 0; padding: 20px; }
+        h1, h2 { color: #ff0000; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ff0000; padding: 10px;text-align: left;}
+        th { background-color: #111; color: #ff0000; }
+        a { color: #ff0000; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .btn { padding: 5px 10px; background: #ff0000; color: #000; border: none; cursor: pointer; text-decoration: none; display: inline-block; font-family: inherit;}
+        .btn:hover { background: #b00202; color: #fff; }
+        .form-box { background: #111; padding: 20px; border: 1px solid #ff0000; margin-bottom: 20px; }
+        input[type="text"], input[type="date"] { width: 100%; padding: 8px; margin: 5px 0 15px; background: #000; border: 1px solid #ff0000; color: #fff; font-family: inherit; box-sizing: border-box;}
+        label { display: block; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/admin/dashboard">&larr; Back to Dashboard</a>
+        <h1>Manage Tour Dates</h1>
+        
+        <div class="form-box">
+            <h2>Add New Tour Date</h2>
+            <form action="/admin/tour_dates/add" method="POST">
+                <label>Event Name</label>
+                <input type="text" name="event_name" required>
+                
+                <label>Date</label>
+                <input type="date" name="date" required>
+                
+                <label>Is Past Event?</label>
+                <input type="checkbox" name="is_past" value="1" style="height: 20px; width: 20px;">
+                
+                <label>Event URL (Tickets/Info)</label>
+                <input type="text" name="event_url">
+                
+                <label>Poster URL (If past event)</label>
+                <input type="text" name="poster_url">
+                
+                <button type="submit" class="btn">Add Tour Date</button>
+            </form>
+        </div>
+
+        <h2>Existing Tour Dates</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Name</th>
+                    <th>Past?</th>
+                    <th>Links</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% tour_dates.forEach(td => { %>
+                    <tr>
+                        <td><%= td.date %></td>
+                        <td><%= td.event_name %></td>
+                        <td><%= td.is_past ? 'Yes' : 'No' %></td>
+                        <td>
+                            <% if (td.event_url) { %>
+                                <a href="<%= td.event_url %>" target="_blank">[URL]</a>
+                            <% } %>
+                            <% if (td.poster_url) { %>
+                                <a href="<%= td.poster_url %>" target="_blank">[Poster]</a>
+                            <% } %>
+                        </td>
+                        <td>
+                            <form action="/admin/tour_dates/delete/<%= td.id %>" method="POST" onsubmit="return confirm('Are you sure?');">
+                                <button type="submit" class="btn" style="background:#444;color:#ff0000;border:1px solid #ff0000;">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }) %>
+                <% if(tour_dates.length === 0) { %>
+                    <tr><td colspan="5">No tour dates found.</td></tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

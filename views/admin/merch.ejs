@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Merch - Admin</title>
+    <link href="https://db.onlinewebfonts.com/c/2545d122b16126676225a5b52283ae23?family=VCR+OSD+Mono" rel="stylesheet">
+    <style>
+        body { background-color: #000; color: #fff; font-family: "VCR OSD Mono", monospace; margin: 0; padding: 20px; }
+        h1, h2 { color: #ff0000; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ff0000; padding: 10px;text-align: left;}
+        th { background-color: #111; color: #ff0000; }
+        a { color: #ff0000; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .btn { padding: 5px 10px; background: #ff0000; color: #000; border: none; cursor: pointer; text-decoration: none; display: inline-block; font-family: inherit;}
+        .btn:hover { background: #b00202; color: #fff; }
+        .form-box { background: #111; padding: 20px; border: 1px solid #ff0000; margin-bottom: 20px; }
+        input[type="text"] { width: 100%; padding: 8px; margin: 5px 0 15px; background: #000; border: 1px solid #ff0000; color: #fff; font-family: inherit; box-sizing: border-box;}
+        label { display: block; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/admin/dashboard">&larr; Back to Dashboard</a>
+        <h1>Manage Merch</h1>
+        
+        <div class="form-box">
+            <h2>Add New Merch Item</h2>
+            <form action="/admin/merch/add" method="POST">
+                <label>Item Name</label>
+                <input type="text" name="title" required>
+                
+                <label>Price (e.g. 15€)</label>
+                <input type="text" name="price" required>
+                
+                <label>Image URL</label>
+                <input type="text" name="image_url" placeholder="/wp-content/uploads/2026/01/image.png" required>
+                
+                <button type="submit" class="btn">Add Merch</button>
+            </form>
+        </div>
+
+        <h2>Existing Merch</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% merch.forEach(item => { %>
+                    <tr>
+                        <td><img src="<%= item.image_url %>" alt="<%= item.title %>" style="max-width: 50px;"></td>
+                        <td><%= item.title %></td>
+                        <td><%= item.price %></td>
+                        <td>
+                            <form action="/admin/merch/delete/<%= item.id %>" method="POST" onsubmit="return confirm('Are you sure?');">
+                                <button type="submit" class="btn" style="background:#444;color:#ff0000;border:1px solid #ff0000;">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }) %>
+                <% if(merch.length === 0) { %>
+                    <tr><td colspan="4">No merch found.</td></tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

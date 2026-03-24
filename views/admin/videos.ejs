@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Videos - Admin</title>
+    <link href="https://db.onlinewebfonts.com/c/2545d122b16126676225a5b52283ae23?family=VCR+OSD+Mono" rel="stylesheet">
+    <style>
+        body { background-color: #000; color: #fff; font-family: "VCR OSD Mono", monospace; margin: 0; padding: 20px; }
+        h1, h2 { color: #ff0000; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ff0000; padding: 10px;text-align: left;}
+        th { background-color: #111; color: #ff0000; }
+        a { color: #ff0000; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .btn { padding: 5px 10px; background: #ff0000; color: #000; border: none; cursor: pointer; text-decoration: none; display: inline-block; font-family: inherit;}
+        .btn:hover { background: #b00202; color: #fff; }
+        .form-box { background: #111; padding: 20px; border: 1px solid #ff0000; margin-bottom: 20px; }
+        input[type="text"] { width: 100%; padding: 8px; margin: 5px 0 15px; background: #000; border: 1px solid #ff0000; color: #fff; font-family: inherit; box-sizing: border-box;}
+        label { display: block; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/admin/dashboard">&larr; Back to Dashboard</a>
+        <h1>Manage Videos</h1>
+        
+        <div class="form-box">
+            <h2>Add New Video</h2>
+            <form action="/admin/videos/add" method="POST">
+                <label>Video Title</label>
+                <input type="text" name="title" required>
+                
+                <label>YouTube Embed URL (e.g. https://www.youtube.com/embed/XXXXX)</label>
+                <input type="text" name="youtube_url" required>
+                
+                <button type="submit" class="btn">Add Video</button>
+            </form>
+        </div>
+
+        <h2>Existing Videos</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>URL</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% videos.forEach(vid => { %>
+                    <tr>
+                        <td><%= vid.title %></td>
+                        <td><a href="<%= vid.youtube_url %>" target="_blank"><%= vid.youtube_url %></a></td>
+                        <td>
+                            <form action="/admin/videos/delete/<%= vid.id %>" method="POST" onsubmit="return confirm('Are you sure?');">
+                                <button type="submit" class="btn" style="background:#444;color:#ff0000;border:1px solid #ff0000;">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }) %>
+                <% if(videos.length === 0) { %>
+                    <tr><td colspan="3">No videos found.</td></tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
